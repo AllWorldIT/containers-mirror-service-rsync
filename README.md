@@ -24,7 +24,7 @@ Rsync daemon port 873 is exposed.
 
 # Volumes
 
-## /data
+## Volume: /data
 
 The /data volume is used for storing of mirror data.
 
