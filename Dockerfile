@@ -37,5 +37,5 @@ VOLUME ["/data"]
 EXPOSE 873
 
 # Health check
-HEALTHCHECK CMD rsync -L localhost:: || exit 1
+HEALTHCHECK CMD rsync -L localhost::
 
