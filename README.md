@@ -1,32 +1,80 @@
-# Introduction
+[![pipeline status](https://gitlab.conarx.tech/containers/mirror-service-rsyncd/badges/main/pipeline.svg)](https://gitlab.conarx.tech/containers/mirror-service-rsyncd/-/commits/main)
 
-This is the AllWorldIT Mirror Rsync service image, used for building mirrors and adding Rsync support.
+# Container Information
 
-Check the [Alpine Base Image](https://gitlab.iitsp.com/allworldit/docker/alpine/README.md) for more settings.
+[Container Source](https://gitlab.conarx.tech/containers/mirror-service-rsyncd) - [GitHub Mirror](https://github.com/AllWorldIT/containers-mirror-service-rsyncd)
 
-This image has a health check which checks `localhost` for a response.
-
-
-
-# Environment
-
-No options available.
+This is the Conarx Containers Mirror Rsyncd Service image, it provides the rsync service for mirrors.
 
 
 
-# Exposed ports
+# Mirrors
 
-## Port 873
+|  Provider  |  Repository                                           |
+|------------|-------------------------------------------------------|
+| DockerHub  | allworldit/mirror-service-rsyncd                      |
+| Conarx     | registry.conarx.tech/containers/mirror-service-rsyncd |
 
-Rsync daemon port 873 is exposed.
+
+
+# Conarx Containers
+
+All our Docker images are part of our Conarx Containers product line. Images are generally based on Alpine Linux and track the
+Alpine Linux major and minor version in the format of `vXX.YY`.
+
+Images built from source track both the Alpine Linux major and minor versions in addition to the main software component being
+built in the format of `vXX.YY-AA.BB`, where `AA.BB` is the main software component version.
+
+Our images are built using our Flexible Docker Containers framework which includes the below features...
+
+- Flexible container initialization and startup
+- Integrated unit testing
+- Advanced multi-service health checks
+- Native IPv6 support for all containers
+- Debugging options
+
+
+
+# Community Support
+
+Please use the project [Issue Tracker](https://gitlab.conarx.tech/containers/mirror-service-rsyncd/-/issues).
+
+
+
+# Commercial Support
+
+Commercial support for all our Docker images is available from [Conarx](https://conarx.tech).
+
+We also provide consulting services to create and maintain Docker images to meet your exact needs.
+
+
+
+# Environment Variables
+
+Environment variables are available from...
+* [Conarx Containers Alpine image](https://gitlab.conarx.tech/containers/alpine).
 
 
 
 # Volumes
 
-## Volume: /data
 
-The /data volume is used for storing of mirror data.
+## /data
+
+Mirror data directory.
+
+Files and directories should be owned by 1001:1001.
+
+
+## /etc/rsyncd.conf.d
+
+Rsyncd configuration.
+
+
+
+# Exposed Ports
+
+SSH port 873 is exposed.
 
 
 
@@ -40,5 +88,3 @@ An example of a configuration file can be found below...
         path = /data
         comment = Test
 ```
-
-

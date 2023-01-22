@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright (c) 2022-2023, AllWorldIT.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,17 +20,14 @@
 # IN THE SOFTWARE.
 
 
-uid = nobody
-gid = nobody
-use chroot = no
-max connections = 100
-log file = /dev/stderr
-pid file = /run/rsyncd.pid
-lock file = /run/rsyncd.lock
+apk add --no-cache socat
 
-read only = True
-transfer logging = True
+cat <<EOF > /etc/rsyncd.conf.d/test.conf
+[test]
+	path = /data
+	comment = Test
+EOF
 
-exclude = **/.~tmp~
+echo "SUCCESS4" > /data/testfile4.txt
+echo "SUCCESS6" > /data/testfile6.txt
 
-&include /etc/rsyncd.conf.d

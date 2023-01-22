@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright (c) 2022-2023, AllWorldIT.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,17 +20,21 @@
 # IN THE SOFTWARE.
 
 
-uid = nobody
-gid = nobody
-use chroot = no
-max connections = 100
-log file = /dev/stderr
-pid file = /run/rsyncd.pid
-lock file = /run/rsyncd.lock
+# Check we get a positive response back when using IPv4
+if ! rsync --ipv4 -L localhost:: ; then
+	fdc_test_error mirror-service-rsyncd "Health check failed for Mirror Service Rsyncd using IPv4"
+	false
+fi
 
-read only = True
-transfer logging = True
 
-exclude = **/.~tmp~
+# Return if we don't have IPv6 support
+if [ -z "$(ip -6 route show default)" ]; then
+	return
+fi
 
-&include /etc/rsyncd.conf.d
+
+# Check we get a positive response back when using IPv6
+if ! rsync --ipv6 -L localhost:: ; then
+	fdc_test_error mirror-service-rsyncd "Health check failed for Mirror Service Rsyncd using IPv6"
+	false
+fi
