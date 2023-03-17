@@ -47,6 +47,7 @@ fdc_test_pass mirror-service-rsyncd "Rsync file matches test file using IPv4"
 
 # Return if we don't have IPv6 support
 if [ -z "$(ip -6 route show default)" ]; then
+	fdc_test_alert mirror-service-rsyncd "Not running IPv6 tests due to no IPv6 default route"
 	return
 fi
 
