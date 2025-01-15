@@ -20,6 +20,17 @@
 # IN THE SOFTWARE.
 
 
+fdc_test_start mirror-service-rsyncd "Check rsync version 3.4.0"
+version_a=$(rsync --version | head -n 1 | awk '{print $3}')
+version_b="3.4.0"
+if apk version -t "$version_a" "$version_b" | grep -q '<'; then
+    echo "rsync $version_a is less than $version_b"
+	fdc_test_fail mirror-service-rsyncd "Rsync version is not >=$version_b"
+	false
+fi
+fdc_test_pass mirror-service-rsyncd "Rsync version is >=$version_b ($version_a)"
+
+
 fdc_test_start mirror-service-rsyncd "Testing Rsync connectivity using IPv4"
 OUT_V4_873=$(socat -T2 - "TCP:127.0.0.1:873,end-close" < /dev/null)
 if ! grep 'RSYNC' <<< "$OUT_V4_873"; then
